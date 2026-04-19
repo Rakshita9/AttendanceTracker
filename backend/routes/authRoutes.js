@@ -1,28 +1,25 @@
 import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import authenticate from "../middleware/authenticate.js";
+import {
+    signup,
+    getSignupProfile,
+    login,
+    getLoginProfile,
+    forgotPassword,
+    resetPassword,
+} from "../controllers/authController.js";
+import { getStats } from "../controllers/statsController.js";
 
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
-    const { name, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword });
-    await newUser.save();
-    res.json({ message: "User signup successfully" });
-});
+router.post("/signup", signup);
+router.get("/signup", authenticate, getSignupProfile);
 
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
+router.post("/login", login);
+router.get("/login", authenticate, getLoginProfile);
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Incorrect password" });
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.json({ token, user });
-});
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
+router.get("/stats", authenticate, getStats);
 
 export default router;

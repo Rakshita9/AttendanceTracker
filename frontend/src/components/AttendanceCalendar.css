@@ -2,8 +2,10 @@
     margin-top: 20px;
     background: rgba(255, 255, 255, 0.2);
     padding: 20px;
+    padding-bottom: 110px;
     border-radius: 10px;
     text-align: center;
+    min-height: calc(100vh - 140px);
 }
 
 .calendar-controls {
@@ -82,6 +84,23 @@
     font-weight: bold;
 }
 
+.attendance-stats {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.32);
+    padding: 16px 18px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-stats p {
+    margin: 6px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
 
 
 .calendar-header-bar {
@@ -112,6 +131,7 @@
     .calendar-container {
         padding: 15px;
         margin-top: 15px;
+        padding-bottom: 120px;
     }
     
     .calendar-controls {
@@ -139,6 +159,11 @@
     .statistics {
         padding: 12px;
     }
+
+    .attendance-stats {
+        margin-bottom: 30px;
+        padding: 14px 16px;
+    }
     
     .statistics p {
         font-size: 14px;
@@ -149,6 +174,7 @@
     .calendar-container {
         padding: 10px;
         margin-top: 10px;
+        padding-bottom: 130px;
     }
     
     .calendar-controls {
@@ -177,6 +203,11 @@
     .statistics {
         padding: 10px;
         margin-top: 15px;
+    }
+
+    .attendance-stats {
+        margin-bottom: 36px;
+        padding: 12px 14px;
     }
     
     .statistics h3 {

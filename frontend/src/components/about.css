@@ -1,57 +1,166 @@
+.about-container {
+    max-width: 1080px;
+    margin: 36px auto;
+    padding: 32px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(255, 126, 179, 0.14), transparent 28%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(244, 250, 255, 0.76));
+    box-shadow: 0 22px 48px rgba(108, 76, 116, 0.16);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: left;
+}
+
+.about-hero {
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(79, 111, 168, 0.16);
+}
+
+.about-kicker {
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #4f9ad1;
+}
+
+.about-container h1 {
+    margin: 0;
+    color: #ff4d79;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.2;
+}
+
+.about-lead {
+    max-width: 760px;
+    margin: 14px 0 0;
+    font-size: 1.08rem;
+    color: #352c49;
+    line-height: 1.75;
+}
+
+.about-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.about-highlight-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(122, 178, 206, 0.24), rgba(255, 126, 179, 0.18));
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 10px 20px rgba(79, 111, 168, 0.09);
+}
+
+.about-highlight-number {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff6ea8 0%, #5f9bff 100%);
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.about-highlight-label {
+    color: #2d2640;
+    font-weight: 700;
+}
+
+.about-section {
+    margin-top: 28px;
+}
+
+.about-container h2 {
+    color: #4b6fa8;
+    font-size: 1.45rem;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.about-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(122, 178, 206, 0.16);
+    color: #2d2640;
+    line-height: 1.68;
+    box-shadow: 0 8px 18px rgba(108, 76, 116, 0.06);
+}
+
+.about-dual {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.about-container p {
+    font-size: 1.04rem;
+    color: #2d2640;
+    line-height: 1.72;
+}
+
+.about-list {
+    text-align: left;
+    margin: 14px 0 0;
+    padding-left: 20px;
+}
+
+.about-container li {
+    font-size: 0.98rem;
+    color: #2d2640;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.about-container strong {
+    color: #ff4d79;
+}
+
+@media (max-width: 600px) {
     .about-container {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(16, 14, 14, 0.1);
-        text-align: center;
+        width: 92%;
+        padding: 18px;
+        border-radius: 18px;
     }
-    
+
     .about-container h1 {
-        color: #0e0c0c;
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
-    
+
     .about-container h2 {
-        color: #040303;
-        font-size: 1.5rem;
-        margin-top: 20px;
+        font-size: 1.16rem;
     }
-    
-    .about-container p {
-        font-size: 1.1rem;
-        color: #151313;
-        line-height: 1.6;
+
+    .about-highlights,
+    .about-grid,
+    .about-dual {
+        grid-template-columns: 1fr;
     }
-    
-    .about-container ul, .about-container ol {
-        text-align: left;
-        margin: 20px 0;
-        padding-left: 20px;
+
+    .about-lead {
+        font-size: 0.98rem;
     }
-    
-    .about-container li {
-        font-size: 1rem;
-        color: #131010;
-        margin: 10px 0;
+
+    .about-card,
+    .about-highlight-card {
+        padding: 14px;
     }
-    
-    .about-container strong {
-        color: #222;
-    }
-    
-    @media (max-width: 600px) {
-        .about-container {
-        width: 90%;
-        padding: 15px;
-        }
-    
-        .about-container h1 {
-        font-size: 1.8rem;
-        }
-    
-        .about-container h2 {
-        font-size: 1.3rem;
-        }
-    }
+}

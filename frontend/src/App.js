@@ -1,47 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { fetchSubjects } from "./api";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Navigate, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import SubjectPanel from "./components/SubjectPanel";
-import AttendanceCalender1 from "./components/AttendanceCalender1";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import About from "./components/about";
-import ForgotPassword from "./components/ForgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LandingPage from "./pages/LandingPage";
+import HomePage from "./pages/HomePage";
+import AttendanceCalendarPage from "./pages/AttendanceCalendarPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import AboutPage from "./pages/AboutPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 import "./App.css";
 
 const App = () => {
-  const [subjects, setSubjects] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("token") ? true : false
   );
 
-  /* ---------------- FETCH SUBJECTS ---------------- */
-  const loadSubjects = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
-
-      const res = await fetchSubjects();
-      setSubjects(res.data.map((s) => s.name || s));
-    } catch (err) {
-      console.error("Error fetching subjects:", err);
-    }
-  };
-
-  /* ---------------- AUTH EFFECT ---------------- */
   useEffect(() => {
-    if (isAuthenticated) {
-      loadSubjects();
-    } else {
-      // SECURITY: clear previous user data
-      setSubjects([]);
-    }
-  }, [isAuthenticated]);
+    const syncAuthState = () => {
+      setIsAuthenticated(Boolean(localStorage.getItem("token")));
+    };
+
+    window.addEventListener("authChanged", syncAuthState);
+    window.addEventListener("storage", syncAuthState);
+
+    return () => {
+      window.removeEventListener("authChanged", syncAuthState);
+      window.removeEventListener("storage", syncAuthState);
+    };
+  }, []);
 
   /* ---------------- LOGOUT HANDLER ---------------- */
   const handleLogout = () => {
@@ -51,7 +42,7 @@ const App = () => {
     localStorage.removeItem("userName");
 
     setIsAuthenticated(false);
-    setSubjects([]);
+    window.dispatchEvent(new Event("authChanged"));
   };
 
   return (
@@ -64,20 +55,15 @@ const App = () => {
 
       <div className="container mx-auto p-4">
         <Routes>
+          {/* ---------- PUBLIC LANDING ---------- */}
+          <Route path="/" element={<LandingPage />} />
 
-          {/* ---------- PROTECTED HOME ---------- */}
+          {/* ---------- PROTECTED DASHBOARD ---------- */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <ProtectedRoute>
-                <SubjectPanel
-                  subjects={subjects}
-                  setSubjects={setSubjects}
-                  addSubject={(sub) => setSubjects([...subjects, sub])}
-                  deleteSubject={(sub) =>
-                    setSubjects(subjects.filter((s) => s !== sub))
-                  }
-                />
+                <HomePage />
               </ProtectedRoute>
             }
           />
@@ -87,7 +73,7 @@ const App = () => {
             path="/calendar/:subject"
             element={
               <ProtectedRoute>
-                <AttendanceCalender1 />
+                <AttendanceCalendarPage />
               </ProtectedRoute>
             }
           />
@@ -95,12 +81,21 @@ const App = () => {
           {/* ---------- PUBLIC ROUTES ---------- */}
           <Route
             path="/login"
-            element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage setIsAuthenticated={setIsAuthenticated} />}
           />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-
+          <Route
+            path="/signup"
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <SignupPage />}
+          />
+          <Route path="/about" element={<AboutPage />} />
+          <Route
+            path="/forgot-password"
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <ForgotPasswordPage />}
+          />
+          <Route
+            path="/reset-password"
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <ResetPasswordPage />}
+          />
         </Routes>
       </div>
 

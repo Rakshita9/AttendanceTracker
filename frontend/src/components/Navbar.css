@@ -4,15 +4,22 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: linear-gradient(to right, #ff758c, #ff7eb3); /* Pink gradient */
+    background: linear-gradient(to right, #7ab2ce, #ff7eb3, #70e1f5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
     font-family: "Poppins", sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
 /* Logo */
 .logo {
     font-size: 24px;
     font-weight: bold;
+    letter-spacing: 0.02em;
+    color: #ffffff;
 }
 
 /* Navigation Links */
@@ -26,29 +33,33 @@
     color: white;
     font-size: 18px;
     font-weight: 500;
-    transition: 0.3s ease;
+    transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .nav-link:hover {
-    color: #ffe0f0;
+    color: #fff2f8;
+    transform: translateY(-1px);
 }
 
 /* Logout Button */
 .logout-btn {
-    background-color: white;
-    color: #ff758c;
-    border: none;
-    padding: 8px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
+    background: transparent;
+    color: #ffffff;
+    border: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 0;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: color 0.25s ease, transform 0.25s ease;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
 }
 
 .logout-btn:hover {
-    background-color: #ff4d6d;
-    color: white;
+    color: #fff2f8;
+    transform: translateY(-1px);
 }
 
 
@@ -81,7 +92,7 @@
     }
     
     .logout-btn {
-        padding: 6px 12px;
+        padding: 0;
         font-size: 14px;
     }
 }
@@ -110,7 +121,7 @@
     }
     
     .logout-btn {
-        padding: 5px 10px;
+        padding: 0;
         font-size: 12px;
     }
 }

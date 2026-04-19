@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchSubjects, addSubject, deleteSubject } from "../api";
+import { fetchSubjects, addSubject, deleteSubject } from "../services/api";
 import "./SubjectsPanel.css";
 
 const SubjectsPanel = () => {
