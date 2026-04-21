@@ -8,19 +8,24 @@ const LoginPage = ({ setIsAuthenticated }) => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        if (isLoading) return; // Prevent multiple submissions
+        setIsLoading(true);
 
         try {
             const response = await login(email, password);
             localStorage.setItem("email", response.email);
             window.dispatchEvent(new Event("authChanged"));
             setIsAuthenticated(true);
-            alert("Login successful!");
             navigate("/dashboard");
         } catch (error) {
             console.error("Login error:", error.response ? error.response.data : error.message);
             alert(error.response?.data?.message || "Invalid email or password!");
+            setIsLoading(false);
         }
     };
 
@@ -50,7 +55,9 @@ const LoginPage = ({ setIsAuthenticated }) => {
                             required
                         />
                     </div>
-                    <button type="submit" className="login-btn">Login</button>
+                    <button type="submit" className="login-btn" disabled={isLoading}>
+                        {isLoading ? "Logging in..." : "Login"}
+                    </button>
                 </form>
                 <p className="signup-link">
                     <Link to="/signup">Don't have an account? Signup</Link>
