@@ -29,7 +29,14 @@ const ResetPasswordPage = () => {
             alert(response.data?.message || "Password reset successful.");
             navigate("/login");
         } catch (error) {
-            alert(error.response?.data?.message || "Could not reset password.");
+            const backendMessage = error.response?.data?.message;
+
+            if (!error.response && error.message?.includes("REACT_APP_BACKEND_URL")) {
+                alert("Frontend is not configured with REACT_APP_BACKEND_URL on Vercel. Set it to your backend URL and redeploy the frontend.");
+                return;
+            }
+
+            alert(backendMessage || error.message || "Could not reset password.");
         } finally {
             setIsSubmitting(false);
         }
