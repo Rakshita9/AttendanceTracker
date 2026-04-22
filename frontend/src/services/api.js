@@ -1,19 +1,25 @@
 import axios from "axios";
 
 const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-const API_URL = isLocalhost ? "http://localhost:5000" : process.env.REACT_APP_BACKEND_URL;
+const API_URL = isLocalhost ? "http://localhost:5000" : (process.env.REACT_APP_BACKEND_URL || "");
 
-if (!API_URL) {
-    throw new Error(
-        "REACT_APP_BACKEND_URL is missing. Set it in Vercel to your backend API URL so the app can reach the deployed server."
-    );
-}
+const apiError = () => new Error(
+    "REACT_APP_BACKEND_URL is missing. Set it in Vercel to your backend API URL and redeploy the frontend."
+);
 
 const api = axios.create({
-    baseURL: API_URL,
+    baseURL: API_URL || undefined,
     headers: {
         "Content-Type": "application/json",
     },
+});
+
+api.interceptors.request.use((config) => {
+    if (!isLocalhost && !API_URL) {
+        return Promise.reject(apiError());
+    }
+
+    return config;
 });
 
 export const signup = async (email, password) => {
