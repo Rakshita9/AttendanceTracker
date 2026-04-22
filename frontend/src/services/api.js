@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const API_URL = window.location.hostname === "localhost"
-    ? "http://localhost:5000"
-    : (process.env.REACT_APP_BACKEND_URL || "http://localhost:5000");
+const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+const API_URL = isLocalhost ? "http://localhost:5000" : process.env.REACT_APP_BACKEND_URL;
+
+if (!API_URL) {
+    throw new Error(
+        "REACT_APP_BACKEND_URL is missing. Set it in Vercel to your backend API URL so the app can reach the deployed server."
+    );
+}
 
 const api = axios.create({
     baseURL: API_URL,

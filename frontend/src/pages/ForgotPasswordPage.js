@@ -22,6 +22,8 @@ const ForgotPasswordPage = () => {
 
             if (status === 404) {
                 alert("Password reset route is not available on current backend. Please run latest backend or redeploy backend.");
+            } else if (!error.response && error.message?.includes("REACT_APP_BACKEND_URL")) {
+                alert("Frontend is not configured with REACT_APP_BACKEND_URL on Vercel. Set it to your backend URL and redeploy the frontend.");
             } else {
                 alert(backendMessage || "Failed to send reset email. Please try again.");
             }

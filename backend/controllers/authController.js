@@ -37,7 +37,7 @@ const sendWelcomeEmail = async (email) => {
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #2b2b2b;">
                 <h2 style="color:#ff4d79; margin-bottom:8px;">Welcome to Self Attendance Tracker ✨</h2>
                 <p>Hi there,</p>
-                <p>Yay! Your account is ready. We are so happy to have you here.</p>
+                <p>🎉Yay! Your account is ready. We are so happy to have you here.</p>
                 <p>Start adding your subjects and track attendance with ease.</p>
                 <p style="margin-top:16px;">With love,<br/>Self Attendance Tracker Team</p>
             </div>
@@ -74,7 +74,7 @@ export const signup = async (req, res) => {
             console.log("Welcome email send failed:", mailError.message);
         }
 
-        res.json({ message: "Signup successful" });
+        res.json({ message: "Signup successful 🎉" });
     } catch (error) {
         res.status(500).json({ message: "Signup error", error: error.message });
     }
@@ -119,7 +119,7 @@ export const login = async (req, res) => {
             { expiresIn: "2h" }
         );
 
-        res.json({ message: "Login successful", token, email: user.email });
+        res.json({ message: "Login successful 🎉", token, email: user.email });
     } catch (error) {
         res.status(500).json({ message: "Login error", error: error.message });
     }
@@ -200,7 +200,7 @@ export const resetPassword = async (req, res) => {
         }
 
         if (newPassword.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters" });
+            return res.status(400).json({ message: "Password must be at least 6 characters " });
         }
 
         const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
